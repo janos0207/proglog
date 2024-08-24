@@ -1,0 +1,21 @@
+# use https://github.com/go-task/task
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task --list
+    silent: true
+  compile:
+    desc: compile the protobuf
+    cmds:
+      - |
+        protoc api/v1/*.proto \
+          --go_out=. \
+          --go_opt=paths=source_relative \
+          --proto_path=.
+
+  test:
+    desc: run `go test`
+    cmds:
+      - go test -race ./...
